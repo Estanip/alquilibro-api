@@ -1,4 +1,4 @@
-# Alquilibro 
+# ALQUILIBRO
 
 <p> Se trata de una aplicacion que va a permitir alquilar y poner en alquiler libros a sus usuarios.
  </p>
