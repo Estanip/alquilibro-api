@@ -1,5 +1,16 @@
 const app = require('./app');
+const { conn } = require('./database/database')
 
-app.listen(3000, () => {
-    console.log("Server listen on port 3000")
-});
+const port = process.env.PORT || 3008;
+
+// Syncing all the models at once.
+try {
+  conn.sync({ force: true }).then(() => {
+    console.log("DB conectada")
+    app.listen(port, () => {
+      console.log('Server listen on port 3008');
+    });
+  });
+} catch(err) {
+  console.log(err)
+};
