@@ -1,10 +1,10 @@
-const express = require('express');
-const router = express.Router();
+const { Router } = require('express');
+const router = Router();
 
-router.get('/', (req,res) => {
-    return res.json({
-        message: "Back deployed Ok"
-    })
-})
+const usersRoutes = require('./users');
+const authRoutes = require('./auth');
+
+router.use('/auth', authRoutes);
+router.get('/users', usersRoutes);
 
 module.exports = router;
