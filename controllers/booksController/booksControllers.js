@@ -12,12 +12,26 @@ const getBookByIsbn = async (req, res) => {
 
         const bookResult = response.data.items[0].volumeInfo;
 
+        let lang;
+        
+        if(bookResult.language === "en") {
+            lang = "English"
+        }
+        else if(bookResult.language === "es") {
+            lang = "Español"
+        }
+        else {
+            lang = "No Informado"
+        }
+
+        console.log(lang)
+
         book = {
             title: bookResult.title,
-            author: bookResult.authors ? bookResult.authors[0] : "No Informada",
-            editorial: bookResult.publisher ?  bookResult.publisher : "No Informada",
-            category: bookResult.categories ? bookResult.categories[0] : "No Informada" ,
-            language: bookResult.language ? bookResult.language : "No Informada"
+            author: bookResult.authors ? bookResult.authors[0] : "No Informado",
+            editorial: bookResult.publisher ?  bookResult.publisher : "No Informado",
+            category: bookResult.categories ? bookResult.categories[0] : "No Informado" ,
+            language: lang ? lang : "No Informado"
         }
 
         return res.json(book);
