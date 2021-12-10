@@ -6,21 +6,30 @@ const getBookByIsbn = async (req, res) => {
     try {
 
         const { isbn } = req.params;
+        let book = {};
 
-        console.log(isbn)
+        const response = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}`);
 
-        const result = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}`);
+        const bookResult = response.data.items[0].volumeInfo;
 
-        console.log("result", result.data)
+        book = {
+            title: bookResult.title,
+            author: bookResult.authors[0],
+            editorial: bookResult.publisher,
+            category: bookResult.categories[0],
+            language: bookResult.language
+        }
 
-        return res.json(result.data);
+        return res.json(book);
 
 
     } catch (err) {
         return res.json({
-            "Error": err
+            "Error": err.message
         })
     }
 };
+
+
 
 module.exports = { getBookByIsbn };
