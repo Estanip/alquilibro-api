@@ -14,10 +14,10 @@ const getBookByIsbn = async (req, res) => {
 
         book = {
             title: bookResult.title,
-            author: bookResult.authors[0],
-            editorial: bookResult.publisher,
-            category: bookResult.categories[0],
-            language: bookResult.language
+            author: bookResult.authors ? bookResult.authors[0] : "No Informada",
+            editorial: bookResult.publisher ?  bookResult.publisher : "No Informada",
+            category: bookResult.categories ? bookResult.categories[0] : "No Informada" ,
+            language: bookResult.language ? bookResult.language : "No Informada"
         }
 
         return res.json(book);
@@ -25,7 +25,7 @@ const getBookByIsbn = async (req, res) => {
 
     } catch (err) {
         return res.json({
-            "Error": err.message
+            Error: err.message
         })
     }
 };
