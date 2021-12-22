@@ -53,6 +53,4 @@ const getBookByIsbn = async (req, res) => {
     }
 };
 
-
-
 module.exports = { getBookByIsbn };
