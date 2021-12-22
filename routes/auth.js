@@ -1,6 +1,6 @@
 /* 
     Rutas de Usuario / Auth
-    host + /auth
+    host + /api/auth
 */
 
 const { Router } = require('express');
