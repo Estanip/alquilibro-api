@@ -1,7 +1,7 @@
 const axios = require('axios');
+const { Book, User } = require('../../database/database');
 
 const getBookByIsbn = async (req, res) => {
-
 
     try {
 
@@ -53,4 +53,40 @@ const getBookByIsbn = async (req, res) => {
     }
 };
 
-module.exports = { getBookByIsbn };
+const uploadBook = async (req, res) => {
+
+    try {
+
+        const { isbn, title, author, editorial, category, language, price, rating } = req.body;
+
+        const book = {
+            isbn,
+            title,
+            author,
+            editorial,
+            category,
+            language,
+            price,
+            rating
+        }
+
+        const user = await User.findOne({
+            where: {
+                username: "Roman"
+            }
+        })
+
+        const newBook = await Book.create({...book, userId: user.id});
+
+        return res.json({
+            Message: "Libro Creado con Exito",
+            newBook
+        })
+
+    } catch (err) {
+        console.log(err.message)
+    }
+
+}
+
+module.exports = { getBookByIsbn, uploadBook };
