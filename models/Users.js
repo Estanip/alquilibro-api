@@ -1,43 +1,41 @@
 const { DataTypes } = require('sequelize');
 
 module.exports = (sequelize) => {
-    sequelize.define('book', {
+    sequelize.define('user', {
         id: {
             type: DataTypes.UUID,
             allowNull: false,
             primaryKey: true
         },
-        isbn: {
-            type: DataTypes.STRING,
-            allowNull: false
+        name: {
+            type: DataTypes.STRING
         },
-        title: {
-            type: DataTypes.STRING,
-            allowNull: false
+        lastname: {
+            type: DataTypes.STRING
         },
-        author: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },
-        editorial: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },
-        category: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },
-        language: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },
-        price: {
-            type: DataTypes.INTEGER,
-            defaultValue: 0,
-            allowNull: false
-        },
-        rating: {
+        phone: {
             type: DataTypes.INTEGER
+        },
+        email: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        username: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            unique: true
+        },
+        password: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        readerRating: {
+            type: DataTypes.INTEGER,
+            allowNull: false
+        },
+        sellerRating: {
+            type: DataTypes.INTEGER,
+            allowNull: false
         }
     },
         {
