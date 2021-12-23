@@ -59,11 +59,12 @@ sequelize.models = Object.fromEntries(capsEntries);
 const { Book, Booking, User } = sequelize.models;
 
 // Aca vendrian las relaciones
-/* User.belongsToMany(Book, { through: "user_books" });
-Book.belongsToMany(User, { through: "user_books" });
-User.belongsToMany(Booking, { through: "user_bookings" });
-Booking.belongsToMany(User, { through: "user_bookings" });
- */
+Booking.belongsTo(User);
+Book.belongsTo(User);
+User.hasMany(Book);
+User.hasMany(Booking);
+Book.belongsToMany(Booking, {through: 'BooksBooked'});
+Booking.belongsTo(Book);
 
 module.exports = {
   conn: sequelize, // para importart la conexión { conn } = require('./db.js');

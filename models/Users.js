@@ -2,10 +2,17 @@ const { DataTypes } = require('sequelize');
 
 module.exports = (sequelize) => {
     sequelize.define('user', {
-        id: {
-            type: DataTypes.UUID,
+        username: {
+            type: DataTypes.STRING,
             allowNull: false,
-            primaryKey: true
+            unique: true,
+            validate: {
+                len: [3, 20]
+            }
+        },
+        password: {
+            type: DataTypes.STRING,
+            allowNull: false
         },
         name: {
             type: DataTypes.STRING
@@ -14,28 +21,32 @@ module.exports = (sequelize) => {
             type: DataTypes.STRING
         },
         phone: {
-            type: DataTypes.INTEGER
+            type: DataTypes.INTEGER,
+            validate: {
+                is: /\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{4})/
+            }
         },
         email: {
             type: DataTypes.STRING,
-            allowNull: false
-        },
-        username: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            unique: true
-        },
-        password: {
-            type: DataTypes.STRING,
-            allowNull: false
+            validate: {
+                isEmail: true
+            }
         },
         readerRating: {
             type: DataTypes.INTEGER,
-            allowNull: false
+            defaultValue: 0,
+            validate: {
+                min: 0,
+                max: 5
+            }
         },
         sellerRating: {
             type: DataTypes.INTEGER,
-            allowNull: false
+            defaultValue: 0,
+            validate: {
+                min: 0,
+                max: 5
+            }
         }
     },
         {
