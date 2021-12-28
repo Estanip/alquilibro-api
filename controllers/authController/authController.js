@@ -30,11 +30,12 @@ const createUser = async (req, res) => {
         if (!create) {
             return res.json({
                 ok: false,
-                msg: 'Ya existe un usuario con ese correo'
+                msg: 'Ya existe el usuario'
             });
         };
         // Generar JWT
         const token = await generarJWT(user.id, user.username);
+
         return res.json({
             ok: true,
             msg: 'Usuario creado con exito',
@@ -46,8 +47,7 @@ const createUser = async (req, res) => {
         })
 
     } catch (error) {
-        console.error(error)
-        res.json({
+        return res.json({
             ok: false,
             msg: 'No se pudo crear el usuario',
             err: error.message
@@ -58,6 +58,7 @@ const createUser = async (req, res) => {
 const loginUser = async (req, res) => {
 
     const { username, password } = req.body;
+
     try {
         const user = await User.findOne({
             where: { username: username }
@@ -84,7 +85,7 @@ const loginUser = async (req, res) => {
         const token = await generarJWT(user.id, user.username);
 
 
-        res.json({
+        return res.json({
             ok: true,
             uid: user.id,
             name: user.username,
@@ -94,7 +95,7 @@ const loginUser = async (req, res) => {
         })
 
     } catch (error) {
-        res.status(500).json({
+        return res.status(500).json({
             ok: false,
             msg: 'No se puedo loguear con exito',
             error: error.message
@@ -110,7 +111,7 @@ const renewToken = async (req, res) => {
     //Genera un nuevo JWT y retorna en esta peticion
     const token = await generarJWT(uid, username)
 
-    res.json({
+    return res.json({
         ok: true,
         msg: 'renew',
         uid,
