@@ -20,6 +20,9 @@ module.exports = (sequelize) => {
         lastname: {
             type: DataTypes.STRING
         },
+        avatar: {
+            type: DataTypes.TEXT,
+        },
         phone: {
             type: DataTypes.INTEGER,
             validate: {
