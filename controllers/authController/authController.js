@@ -1,12 +1,12 @@
-const bcrypt = require('bcryptjs');
 const { User } = require('../../database/database');
 const { generarJWT } = require('../../helpers/jwt');
+const bcrypt = require('bcryptjs');
 
 const createUser = async (req, res) => {
 
-    try {
+    try {        
 
-        let { username, password } = req.body;
+        let { username, password, image } = req.body;
 
         if (!username || !password) {
             return res.json("No deben quedar campos vacios");
@@ -17,7 +17,7 @@ const createUser = async (req, res) => {
         password = bcrypt.hashSync(password, salt);
 
         //Guardar en la base de datos
-        const [user, create] = await User.findOrCreate({
+        const [user, created] = await User.findOrCreate({
             where: {
                 username: username
             },
@@ -28,7 +28,7 @@ const createUser = async (req, res) => {
             }
         });
 
-        if (!create) {
+        if (!created) {
             return res.json({
                 ok: false,
                 msg: 'Ya existe el usuario'
