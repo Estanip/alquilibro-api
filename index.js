@@ -2,6 +2,11 @@ require("dotenv").config();
 const app = require('./app');
 const { conn } = require('./database/database');
 
+const browserEnv = require('browser-env');
+
+browserEnv(['navigator']);
+
+
 const port = process.env.PORT || 3008;
 
 // Syncing all the models at once.
